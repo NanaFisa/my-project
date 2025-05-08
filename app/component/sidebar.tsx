@@ -30,13 +30,20 @@ export default function Sidebar() {
                     </button>
                     
                     <img 
-                        src="/path/to/profile-image.jpg" 
-                        alt="User profile" 
-                        className="w-10 h-10 rounded-full object-cover"
+                        src="https://foundry360.io/_next/image?url=%2Fimages%2Flogo-f360.png&w=640&q=75" 
+                        alt="Apps Logo" 
+                        className="w-15 h-15 rounded-full"
                     />
                 </div>
-            
-                <h1 className="text-lg font-bold text-black text-center">GHG Dashboard</h1>
+            <div className="flex items-center gap-5 mb-2">
+            <img 
+                        src="https://th.bing.com/th/id/OIP.gC8049qreQoymjGFMJIqugAAAA?cb=iwc1&rs=1&pid=ImgDetMain" 
+                        alt="Tenant Logo" 
+                        className="w-10 h-10 rounded-full"
+                    />
+                <h6 className="text-lg font-bold text-black text-center">Green House Gas Dashboard</h6>
+            </div>
+                
             </div>
 
             <nav className="flex flex-col gap-4 flex-grow">
@@ -44,11 +51,11 @@ export default function Sidebar() {
                     className={`flex items-center gap-2 text-left font-semibold rounded ${
                         activeButton === 'Overview' 
                             ? 'bg-red-100 text-red-600' 
-                            : 'bg-white text-black'
+                            : 'bg-white text-gray-500'
                     } w-full py-2 pl-3 hover:bg-red-100`}
                     onClick={() => handleButtonClick('Overview')}
                 >
-                    <House size={24} color={activeButton === 'Overview' ? "#EF4444" : "#000000"} />
+                    <House size={24} color={activeButton === 'Overview' ? "#EF4444" : "#686767"} />
                     <span>Overview</span>
                 </button>
                 
@@ -56,11 +63,11 @@ export default function Sidebar() {
                     className={`flex items-center gap-2 text-left font-semibold rounded ${
                         activeButton === 'Report' 
                             ? 'bg-red-100 text-red-600' 
-                            : 'bg-white text-black'
+                            : 'bg-white text-gray-500'
                     } w-full py-2 pl-3 hover:bg-red-100`}
                     onClick={() => handleButtonClick('Report')}
                 >
-                    <Clipboard size={24} color={activeButton === 'Report' ? "#EF4444" : "#000000"} />
+                    <Clipboard size={24} color={activeButton === 'Report' ? "#EF4444" : "#686767"} />
                     <span>Report</span>
                 </button>
                 
@@ -68,11 +75,11 @@ export default function Sidebar() {
                     className={`flex items-center gap-2 text-left font-semibold rounded ${
                         activeButton === 'Data Entry' 
                             ? 'bg-red-100 text-red-600' 
-                            : 'bg-white text-black'
+                            : 'bg-white text-gray-500'
                     } w-full py-2 pl-3 hover:bg-red-100`}
                     onClick={() => handleButtonClick('Data Entry')}
                 >
-                    <Edit2 size={24} color={activeButton === 'Data Entry' ? "#EF4444" : "#000000"} />
+                    <Edit2 size={24} color={activeButton === 'Data Entry' ? "#EF4444" : "#686767"} />
                     <span>Data Entry</span>
                 </button>
             </nav>
