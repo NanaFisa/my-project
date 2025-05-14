@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
 import { readFile } from 'fs/promises';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+import pool from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -44,7 +40,8 @@ export async function POST(req: NextRequest) {
     );
     client.release();
 
-    return NextResponse.redirect('/success', 303); // redirect after success
+    
+    return NextResponse.redirect(new URL('/success', req.nextUrl.origin), 303);
   } catch (err) {
     console.error('Database insert error:', err);
     return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });
