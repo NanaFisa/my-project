@@ -37,6 +37,7 @@ export default function ElectricityForm() {
   ));
 
   return (
+    <div>
       <div className="bg-white p-6 border rounded-xl shadow-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-black">Electricity Bill</h2>
@@ -66,5 +67,6 @@ export default function ElectricityForm() {
           <button type="submit" className="bg-white text-red-500 border border-red-800 py-2 rounded hover:bg-red-50">Save</button>
         </form>
       </div>
+    </div>
   );
 }

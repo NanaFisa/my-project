@@ -13,7 +13,6 @@ export default function Topbar() {
           <RefreshCw size={16} color="#D20103" />
         </button>
             </div>
-            <hr className="border-t border-gray-300"/>
         </div>
     );
 }
