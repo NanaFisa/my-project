@@ -8,8 +8,6 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // You can add auth headers here if needed
-    // config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => {

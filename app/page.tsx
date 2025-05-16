@@ -31,7 +31,7 @@ export default function Home() {
         </p>
 
         <p>
-          Go to the <Link href="/task">Task Page</Link>
+          Go to the <Link href="/tasks">Task Page</Link>
         </p>
         
         <div className="flex gap-4 items-center flex-col sm:flex-row">

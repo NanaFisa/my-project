@@ -1,16 +1,3 @@
-// import { Pool } from 'pg';
-
-// const pool = new Pool({
-//   host: process.env.DB_HOST,
-//   port: Number(process.env.DB_PORT),
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-// });
-
-// export default pool;
-
-// db.ts
 import { Pool } from 'pg';
 
 const pool = new Pool({
@@ -19,9 +6,9 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  // ssl: {
+  //   rejectUnauthorized: false,
+  // },
 });
 
 export default pool;

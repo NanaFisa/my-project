@@ -1,24 +1,47 @@
 import pool from "@/lib/db";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'GET') {
-        try {
-            const { rows } = await pool.query('SELECT * FROM tasks ORDER BY created_at DESC');
-            res.status(200).json(rows);
-        } catch (error) {
-            res.status(500).json({error: 'Failed to fetch tasks'});
+export async function GET() {
+    console.log('=== GET /api/tasks ===');
+    try {
+        console.log('Attempting to fetch tasks...');
+        const { rows } = await pool.query(
+            'SELECT * FROM tasks ORDER BY "createdAt" DESC'
+        );
+        console.log('Fetched tasks:', rows.length);
+        return NextResponse.json(rows);
+    } catch (error) {
+        console.error('Database Error:', error);
+        return NextResponse.json(
+            { error: 'Failed to fetch tasks',
+              details: error instanceof Error ? error.message : 'Unknown error'  
+             },
+            { status: 500 }
+        );
+    }
+}
+
+export async function POST(request: Request) {
+    try {
+        const { title, description, status } = await request.json();
+
+        if (!title) {
+            return NextResponse.json(
+                { error: 'Title is required' },
+                { status: 400 }
+            );
         }
-    } else if (req.method === 'POST') {
-        try {
-            const { title, description, status } = req.body;
-            const { rows } = await pool.query('INSERT INTO tasks (title, description, status) VALUES ($1, $2, $3) RETURNING *', [ title, description, status ]);
-            res.status(201).json(rows[0]);
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to create task'});
-        }
-    } else {
-        res.setHeader('Allow', ['GET', 'POST']);
-        res.status(405).end(`Method ${req.method} Not Allowed`);
+
+        const { rows } = await pool.query(
+            'INSERT INTO tasks (title, description, status) VALUES ($1, $2, $3) RETURNING *', [title, description || null , status || 'pending']
+        );
+
+        return NextResponse.json(rows[0], { status: 201 });
+    } catch (error) {
+        console.error('Create Task Error:', error);
+        return NextResponse.json( 
+            { error: 'Failed to create task'},
+            { status: 500 }
+        );
     }
 }

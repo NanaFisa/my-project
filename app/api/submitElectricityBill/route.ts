@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     client.release();
 
     
-    return NextResponse.redirect(new URL('/success', req.nextUrl.origin), 303);
+    return NextResponse.redirect(new URL('/success', req.nextUrl.origin), 303); //step code success in next-js 
   } catch (err) {
     console.error('Database insert error:', err);
     return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });

@@ -7,7 +7,7 @@ interface Task {
     title: string;
     description?: string;
     status: string;
-    created_at: string;
+    createdAt: string;
 }
 
 export default function TaskList() {
