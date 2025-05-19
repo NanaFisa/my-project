@@ -87,15 +87,31 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Params }
+  { params }: { params: { id: string} }
 ) {
   try {
     const taskId = Number(params.id);
     if (isNaN(taskId)) {
       return NextResponse.json(
-        { error: 'Invalid task ID' },
+        { success: false,
+          message: 'Invalid task ID',
+          id: params.id },
         { status: 400 }
       );
+    }
+
+    const { rows: [task] } = await pool.query(
+      'SELECT * FROM tasks WHERE id = $1', [taskId]
+    );
+
+    if (!task) {
+      return NextResponse.json({
+        success: false,
+        message: 'Task not found',
+        id: taskId
+      },
+    { status: 404 }
+  );
     }
 
     const { rowCount } = await pool.query(
@@ -105,18 +121,30 @@ export async function DELETE(
 
     if (rowCount === 0) {
       return NextResponse.json(
-        { error: 'Task not found' },
-        { status: 404 }
+        { success: false,
+          message: 'Failed to delete task',
+          id: taskId },
+        { status: 500 }
       );
     }
 
-    return new NextResponse(null, { status: 204 });
+    return NextResponse.json({
+      success: true,
+      message: 'Task deleted successfully',
+      id: taskId,
+      data: task
+    },
+  { status: 200 }
+  );
+
   } catch (error) {
     console.error('Delete Task Error:', error);
     return NextResponse.json(
       { 
+        success: false,
         error: 'Failed to delete task',
-        details: error instanceof Error ? error.message : 'Database error'
+        details: error instanceof Error ? error.message : 'Database error',
+        id: params.id
       },
       { status: 500 }
     );
